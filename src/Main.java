@@ -46,5 +46,17 @@ class Gibi implements Comparable<Gibi> {
                 "}";
     }
 
+    @Override
+    public boolean equals(Obeject o){
+        if (this == 0) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Gibi gibi = (Gibi) o;
+        return nome.equals(gibi.nome) && ano.equals(gibi.ano) && paginas.equals(gibi.paginas);
+    }
+     @Override
+    public int hashCode(){
+        return Objects.hash(nome, ano, paginas);
+     }
+
 }
 }
