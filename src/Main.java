@@ -15,11 +15,34 @@ public class Main {
 
         System.out.println("--\tOrdem aleatória\t--");
         Set<Gibi> meusGibis = new HashSet<>(){{
-            add(new Gibi("Thor", "2020", "240"));
-            
-        }}
+            add(new Gibi("Thor", 2020, 240));
+            add(new Gibi("X-MEN", 2001, 300));
+            add(new Gibi("Guerras Secretas", 2015, 110));
+        }};
+        for (Gibi gibi: meusGibis) System.out.println(gibi.getNome() + " - " +
+                gibi.getAno() + " - " + gibi.getPaginas());
+
+        System.out.println("--\tOrdem aleatória\t--");
+        Set<Gibi> meusGibis1 = new LinkedHashSet<>(){{
+            add(new Gibi("Thor", 2020, 240));
+            add(new Gibi("X-MEN", 2001, 300));
+            add(new Gibi("Guerras Secretas", 2015, 110));
+        }};
+        for (Gibi gibi: meusGibis1) System.out.println(gibi.getNome() + " - " +
+                gibi.getAno() + " - " + gibi.getPaginas());
+
+        System.out.println("--\tOrdem natural(paginas)\t--");
+        Set<Gibi> meusGibis2 = new TreeSet<>(meusGibis1);
+        for (Gibi gibi: meusGibis) System.out.println(gibi.getNome() + " - " +
+                gibi.getAno() + " - " + gibi.getPaginas());
+
+        System.out.println("--\tOrdem Nome/Ano/Paginas\t--");
+        Set<Gibi> meusGibis3 = new TreeSet<>(new Gibi.ComparadorNomeAnoPaginas());
+        meusGibis3.addAll(meusGibis);
+        for (Gibi gibi: meusGibis) System.out.println(gibi.getNome() + " - " +
+                gibi.getAno() + " - " + gibi.getPaginas());
     }
-class Gibi implements Comparable<Gibi> {
+static class Gibi implements Comparable<Gibi> {
     private String nome;
     private Integer ano;
     private Integer paginas;
@@ -52,8 +75,8 @@ class Gibi implements Comparable<Gibi> {
     }
 
     @Override
-    public boolean equals(Obeject o){
-        if (this == 0) return true;
+    public boolean equals(Object o){
+        if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Gibi gibi = (Gibi) o;
         return nome.equals(gibi.nome) && ano.equals(gibi.ano) && paginas.equals(gibi.paginas);
@@ -71,10 +94,10 @@ class Gibi implements Comparable<Gibi> {
         return this.getAno().compareTo(gibi.getAno());
     }
 
-    class ComparadorNomeAnoPaginas implements Comparator<Gibi>{
+    static class ComparadorNomeAnoPaginas implements Comparator<Gibi>{
 
         @Override
-        public int comapre(Gibi g1, Gibi g2){
+        public int compare(Gibi g1, Gibi g2){
             int nome = g1.getNome().compareTo(g2.getNome());
             if(nome != 0) return nome;
 
