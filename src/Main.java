@@ -13,6 +13,11 @@ import  java.util.*;
 public class Main {
     public static void main(String[] args){
 
+        System.out.println("--\tOrdem aleatória\t--");
+        Set<Gibi> meusGibis = new HashSet<>(){{
+            add(new Gibi("Thor", "2020", "240"));
+            
+        }}
     }
 class Gibi implements Comparable<Gibi> {
     private String nome;
@@ -56,7 +61,30 @@ class Gibi implements Comparable<Gibi> {
      @Override
     public int hashCode(){
         return Objects.hash(nome, ano, paginas);
-     }
+    }
+
+    @Override
+    public int compareTo(Gibi gibi){
+        int paginas = Integer.compare(this.getPaginas(), gibi.getPaginas());
+        if (paginas !=0) return paginas;
+
+        return this.getAno().compareTo(gibi.getAno());
+    }
+
+    class ComparadorNomeAnoPaginas implements Comparator<Gibi>{
+
+        @Override
+        public int comapre(Gibi g1, Gibi g2){
+            int nome = g1.getNome().compareTo(g2.getNome());
+            if(nome != 0) return nome;
+
+            int ano = g1.getAno().compareTo(g2.getAno());
+            if (ano != 0) return ano;
+
+            return Integer.compare(g1.getPaginas(), g2.getPaginas());
+        }
+    }
+
 
 }
 }
